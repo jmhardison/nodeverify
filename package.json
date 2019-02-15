@@ -1,0 +1,31 @@
+{
+  "name": "nodeverify",
+  "version": "1.0.0",
+  "description": "NodeVerify is used to perform some generic work in testing orchestrators performance and overhead.",
+  "main": "server.js",
+  "scripts": {
+    "test": "return 1",
+    "dev": "node ./src/server.js",
+    "devvscode": "node --nolazy --inspect=5858 ./src/server.js",
+    "start": "node ./src/server.js",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmhardison/nodeverify"
+  },
+  "author": "Jonathan Hardison <jmh@jonathanhardison.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jmhardison/nodeverify"
+  },
+  "homepage": "https://github.com/jmhardison/nodeverify",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "crypto": "^1.0.1",
+    "express": "^4.15.3",
+    "request": "^2.81.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {}
+}
