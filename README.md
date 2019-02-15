@@ -21,4 +21,16 @@ A status endpoint is available once launched:
 ## Running Docker
 
 To launch this API with docker, use the following. You may swap in a docker environment file if you choose, replacing values with real values.
+
+### Linux
 `docker run -d -p 3001:3001 jhardison/nodeverify`
+
+### Windows
+`docker run -d -p 3001:3001 jhardison/nodeverify:latestwindows`
+
+## Tags
+
+`latest` - provides the latest linux distribution.
+`latestwindows` - provides the latest windows distribution
+`linux#` - provides a build specific linux distribution
+`windows#` - provides a build specific windows distribution
