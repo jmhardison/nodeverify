@@ -9,17 +9,74 @@ jobs:
 - job: Linux
   pool:
     vmImage: 'ubuntu-16.04'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master
   variables:
-    imageName: 'jhardison/nodeverify:$(build.buildId)'
+    imageName: 'jhardison/nodeverify:linux$(build.buildId)'
+    imageLatest: 'jhardison/nodeverify:latest'
   steps:
-  - script: docker build -f Dockerfile -t $(imageName) .
-    displayName: 'docker build'
+  - task: Docker@1
+    displayName: Build image
+    inputs:
+      command: build
+      dockerFile: Dockerfile
+      imageName: $(imageName)
+  - task: Docker@1
+    displayName: Tag image
+    inputs:
+      command: tag
+      imageName: $(imageName)
+      arguments: $(imageLatest)
+  - task: Docker@1
+    displayName: Container registry login
+    inputs:
+      command: login
+      containerregistrytype: Container Registry
+      dockerRegistryEndpoint: JHARDISONDockerHub
+  - task: Docker@1
+    displayName: Push image
+    inputs:
+      command: push
+      imageName: $(imageName)
+  - task: Docker@1
+    displayName: Push image
+    inputs:
+      command: push
+      imageName: $(imageLatest)
 
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master 
   variables:
-    imageName: 'jhardison/nodeverify:$(build.buildId)'
+    imageName: 'jhardison/nodeverify:windows$(build.buildId)'
+    imageLatest: 'jhardison/nodeverify:latest'
   steps:
-  - script: docker build -f Dockerfile.windows -t $(imageName) .
-    displayName: 'docker build'
+  - task: Docker@1
+    displayName: Build image
+    inputs:
+      command: build
+      dockerFile: Dockerfile
+      imageName: $(imageName)
+  - task: Docker@1
+    displayName: Tag image
+    inputs:
+      command: tag
+      imageName: $(imageName)
+      arguments: $(imageLatest)
+  - task: Docker@1
+    displayName: Container registry login
+    inputs:
+      command: login
+      containerregistrytype: Container Registry
+      dockerRegistryEndpoint: JHARDISONDockerHub
+  - task: Docker@1
+    displayName: Push image
+    inputs:
+      command: push
+      imageName: $(imageName)
+  - task: Docker@1
+    displayName: Push image
+    inputs:
+      command: push
+      imageName: $(imageLatest)
+        
