@@ -20,6 +20,7 @@ jobs:
       command: build
       dockerFile: Dockerfile
       imageName: $(imageName)
+      arguments: node=node:10.15
   - task: Docker@1
     displayName: Tag image
     inputs:
@@ -57,7 +58,7 @@ jobs:
       command: build
       dockerFile: Dockerfile
       imageName: $(imageName)
-      arguments: node=stefanscherer/node-windows
+      arguments: node=stefanscherer/node-windows:10.15.0
   - task: Docker@1
     displayName: Tag image
     inputs:
