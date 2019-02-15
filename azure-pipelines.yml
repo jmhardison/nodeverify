@@ -55,7 +55,7 @@ jobs:
     displayName: Build image
     inputs:
       command: build
-      dockerFile: Dockerfile
+      dockerFile: Dockerfile.windows
       imageName: $(imageName)
   - task: Docker@1
     displayName: Tag image
