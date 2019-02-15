@@ -4,4 +4,5 @@ ARG node=node:8.7-alpine
 FROM $node as build
 LABEL maintainer="jmh@jonathanhardison.com"
 RUN npm install
+EXPOSE 3005
 CMD node ./src/server.js
