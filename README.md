@@ -3,7 +3,7 @@ NodeVerify is used to perform some generic work in testing orchestrators perform
 
 The following environment variables must exist in order for the API to work.
 
-* PORT - Port for the API to listen on.
+* PORT - Port for the API to listen on. default: `3005`
 * HASHSECRET - Secret for use in hashing. default: `hashme`
 * HASHALGORITHM - Algorithm for use in hashing. default: `sha256`
 
