@@ -1,6 +1,6 @@
 # NodeVerify
 # used in a poc of various orchestrators to test generic performance and overhead
-FROM stefanscherer/node-windows
+FROM iojs:onbuild
 LABEL maintainer="jmh@jonathanhardison.com"
 
 # ExpressJS Listener

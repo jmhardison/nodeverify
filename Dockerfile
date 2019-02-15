@@ -1,7 +1,7 @@
 # NodeVerify
 # used in a poc of various orchestrators to test generic performance and overhead
-FROM node:onbuild
+ARG node=node:8.7-alpine
+FROM $node as build
 LABEL maintainer="jmh@jonathanhardison.com"
-
-# ExpressJS Listener
-EXPOSE 3005
+RUN npm install
+CMD node ./src/server.js
