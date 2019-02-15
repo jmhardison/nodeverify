@@ -9,6 +9,7 @@ jobs:
 - job: Linux
   pool:
     vmImage: 'ubuntu-16.04'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master
   variables:
     imageName: 'jhardison/nodeverify:linux$(build.buildId)'
     imageLatest: 'jhardison/nodeverify:latest'
@@ -45,6 +46,7 @@ jobs:
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master 
   variables:
     imageName: 'jhardison/nodeverify:windows$(build.buildId)'
     imageLatest: 'jhardison/nodeverify:latest'
