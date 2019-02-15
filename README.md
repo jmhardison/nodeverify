@@ -23,10 +23,10 @@ A status endpoint is available once launched:
 To launch this API with docker, use the following. You may swap in a docker environment file if you choose, replacing values with real values.
 
 ### Linux
-`docker run -d -p 3001:3001 jhardison/nodeverify`
+`docker run -d -p 3005:3005 jhardison/nodeverify`
 
 ### Windows
-`docker run -d -p 3001:3001 jhardison/nodeverify:latestwindows`
+`docker run -d -p 3005:3005 jhardison/nodeverify:latestwindows`
 
 ## Tags
 
