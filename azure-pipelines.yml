@@ -11,9 +11,8 @@ jobs:
   variables:
     imageName: 'jhardison/nodeverify:linux$(build.buildId)'
     imageLatest: 'jhardison/nodeverify:latestlinux'
-    buildArg: 'node=node:10.15'
   steps:
-  - script: docker build -f Dockerfile --build-arg $(buildArg) -t $(imageName) .
+  - script: docker build -f Dockerfile.linuxamd64 -t $(imageName) .
     displayName: 'docker build'
   - task: Docker@1
     displayName: Tag image
@@ -29,9 +28,8 @@ jobs:
   variables:
     imageName: 'jhardison/nodeverify:windows$(build.buildId)'
     imageLatest: 'jhardison/nodeverify:latestwindows'
-    buildArg: 'node=stefanscherer/node-windows:10.15.0'
   steps:
-  - script: docker build -f Dockerfile --build-arg $(buildArg) -t $(imageName) .
+  - script: docker build -f Dockerfile.windowsamd64 -t $(imageName) .
     displayName: 'docker build'
   - task: Docker@1
     displayName: Tag image
