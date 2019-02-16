@@ -30,7 +30,7 @@ To launch this API with docker, use the following. You may swap in a docker envi
 
 ## Tags
 
-`latest` - provides the latest linux and distribution.
-`latestlinux` - provides the latest windows distribution
+`latest` - provides the latest linux distribution.
 `latestwindows` - provides the latest windows distribution
-
+`linux#` - provides a build specific linux distribution
+`windows#` - provides a build specific windows distribution
