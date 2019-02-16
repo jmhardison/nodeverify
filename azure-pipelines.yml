@@ -81,14 +81,13 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master
-  variables:
-    imageNameLinux: 'jhardison/nodeverify:linux$(build.buildId)'
-    imageNameWindows: 'jhardison/nodeverify:windows$(build.buildId)'
-    imageLatest: 'jhardison/nodeverify:latest'
   steps:
   - script: wget https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-arm64
     displayName: 'download manifest tool'
   - script: chmod +x manifest-tool-linux-arm64
     displayName: 'chmod manifest tool'
-  - script: ./manifest-tool-linux-arm64 --username $(usernameDocker) --password $(passwordDocker) from-args --platforms linux/amd64,windows/amd64 --template jhardison/nodeverify:latestOS --target jhardison/nodeverify:latest
+  - script: ./manifest-tool-linux-arm64 --username $(USERNAMEDOCKER) --password $(PASSWORDDOCKER) from-args --platforms linux/amd64,windows/amd64 --template jhardison/nodeverify:latestOS --target jhardison/nodeverify:latest
     displayName: 'create multi platform latest'
+    env:
+      USERNAMEDOCKER: $(USERNAME_DOCKER)
+      PASSWORDDOCKER: $(PASSWORD_DOCKER)
