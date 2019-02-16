@@ -86,7 +86,7 @@ jobs:
     displayName: 'download manifest tool'
   - script: chmod +x manifest-tool-linux-amd64
     displayName: 'chmod manifest tool'
-  - script: ./manifest-tool-linux-amd64 --username $env:USERNAMEDOCKER --password $env:PASSWORDDOCKER from-args --platforms linux/amd64,windows/amd64 --template jhardison/nodeverify:latestOS --target jhardison/nodeverify:latest
+  - script: ./manifest-tool-linux-amd64 --username $env:USERNAMEDOCKER --password $env:PASSWORDDOCKER push from-spec manifest-docker.yaml
     displayName: 'create multi platform latest'
     env:
       USERNAMEDOCKER: $(USERNAME_DOCKER)
