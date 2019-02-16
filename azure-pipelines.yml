@@ -1,18 +1,21 @@
-# Build docker image for pull requests, but do not submit back to hub.
+# Build a Docker image to deploy, run, or push to a container registry.
+# Add steps that use Docker Compose, tag images, push to a registry, run an image, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
 - master
 
 jobs:
-- job: Test_Build_Linux
+- job: Build_Linux
   pool:
     vmImage: 'ubuntu-16.04'
-  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master')) #not master
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master
   variables:
     imageName: 'jhardison/nodeverify:linux$(build.buildId)'
     imageLatest: 'jhardison/nodeverify:latestlinux'
+    buildArg: 'node=node:10.15'
   steps:
-  - script: docker build -f Dockerfile.linuxamd64 -t $(imageName) .
+  - script: docker build -f Dockerfile --build-arg $(buildArg) -t $(imageName) .
     displayName: 'docker build'
   - task: Docker@1
     displayName: Tag image
@@ -20,16 +23,28 @@ jobs:
       command: tag
       imageName: $(imageName)
       arguments: $(imageLatest)
+  - task: Docker@1
+    displayName: Container registry login
+    inputs:
+      command: login
+      containerregistrytype: Container Registry
+      dockerRegistryEndpoint: JHARDISONDockerHub
+  - task: Docker@1
+    displayName: Push image
+    inputs:
+      command: push
+      imageName: $(imageLatest)
 
-- job: Test_Build_Windows
+- job: Build_Windows
   pool:
     vmImage: 'vs2017-win2016'
-  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master')) #not master
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master 
   variables:
     imageName: 'jhardison/nodeverify:windows$(build.buildId)'
     imageLatest: 'jhardison/nodeverify:latestwindows'
+    buildArg: 'node=stefanscherer/node-windows:10.15.0'
   steps:
-  - script: docker build -f Dockerfile.windowsamd64 -t $(imageName) .
+  - script: docker build -f Dockerfile --build-arg $(buildArg) -t $(imageName) .
     displayName: 'docker build'
   - task: Docker@1
     displayName: Tag image
@@ -37,3 +52,35 @@ jobs:
       command: tag
       imageName: $(imageName)
       arguments: $(imageLatest)
+  - task: Docker@1
+    displayName: Container registry login
+    inputs:
+      command: login
+      containerregistrytype: Container Registry
+      dockerRegistryEndpoint: JHARDISONDockerHub
+  - task: Docker@1
+    displayName: Push image
+    inputs:
+      command: push
+      imageName: $(imageLatest)
+
+- job: Manifest_Tag_MakeMultiPlat_Latest
+  dependsOn:
+  - Build_Linux
+  - Build_Windows
+  pool:
+    vmImage: 'ubuntu-16.04'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master
+  steps:
+  - script: wget https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64
+    displayName: 'download manifest tool'
+  - script: chmod +x manifest-tool-linux-amd64
+    displayName: 'chmod manifest tool'
+  - task: Docker@1
+    displayName: Container registry login
+    inputs:
+      command: login
+      containerregistrytype: Container Registry
+      dockerRegistryEndpoint: JHARDISONDockerHub
+  - script: ./manifest-tool-linux-amd64 push from-spec manifest.yaml
+    displayName: 'create multi platform latest'

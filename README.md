@@ -24,13 +24,16 @@ To launch this API with docker, use the following. You may swap in a docker envi
 
 ### Linux
 `docker run -d -p 3005:3005 jhardison/nodeverify`
+or
+`docker run -d -p 3005:3005 jhardison/nodeverify:latestlinux`
 
 ### Windows
+`docker run -d -p 3005:3005 jhardison/nodeverify`
+or
 `docker run -d -p 3005:3005 jhardison/nodeverify:latestwindows`
 
 ## Tags
 
-`latest` - provides the latest linux and distribution.
-`latestlinux` - provides the latest windows distribution
+`latest` - provides the latest linux (or) distribution.
 `latestwindows` - provides the latest windows distribution
-
+`latestlinux` - provides the latest linux distribution
