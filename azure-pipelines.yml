@@ -33,11 +33,6 @@ jobs:
     displayName: Push image
     inputs:
       command: push
-      imageName: $(imageName)
-  - task: Docker@1
-    displayName: Push image
-    inputs:
-      command: push
       imageName: $(imageLatest)
 
 - job: Build_Windows
@@ -67,11 +62,6 @@ jobs:
     displayName: Push image
     inputs:
       command: push
-      imageName: $(imageName)
-  - task: Docker@1
-    displayName: Push image
-    inputs:
-      command: push
       imageName: $(imageLatest)
 
 - job: Manifest_Tag_MakeMultiPlat_Latest
@@ -92,8 +82,5 @@ jobs:
       command: login
       containerregistrytype: Container Registry
       dockerRegistryEndpoint: JHARDISONDockerHub
-  - script: ./manifest-tool-linux-amd64 push from-spec manifest-docker.yaml
+  - script: ./manifest-tool-linux-amd64 push from-spec manifest.yaml
     displayName: 'create multi platform latest'
-    env:
-      USERNAMEDOCKER: $(USERNAME_DOCKER)
-      PASSWORDDOCKER: $(PASSWORD_DOCKER)
