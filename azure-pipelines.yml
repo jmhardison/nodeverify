@@ -86,7 +86,13 @@ jobs:
     displayName: 'download manifest tool'
   - script: chmod +x manifest-tool-linux-amd64
     displayName: 'chmod manifest tool'
-  - script: ./manifest-tool-linux-amd64 --username $env:USERNAMEDOCKER --password $env:PASSWORDDOCKER push from-spec manifest-docker.yaml
+  - task: Docker@1
+    displayName: Container registry login
+    inputs:
+      command: login
+      containerregistrytype: Container Registry
+      dockerRegistryEndpoint: JHARDISONDockerHub
+  - script: ./manifest-tool-linux-amd64 push from-spec manifest-docker.yaml
     displayName: 'create multi platform latest'
     env:
       USERNAMEDOCKER: $(USERNAME_DOCKER)
