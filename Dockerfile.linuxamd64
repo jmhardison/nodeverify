@@ -1,9 +1,0 @@
-# NodeVerify
-# used in a poc of various orchestrators to test generic performance and overhead
-FROM node:10.15
-LABEL maintainer="jmh@jonathanhardison.com"
-WORKDIR /app
-COPY . .
-RUN npm install
-EXPOSE 3005
-CMD node ./src/server.js
