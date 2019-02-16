@@ -6,7 +6,7 @@ trigger:
 - master
 
 jobs:
-- job: Build-Linux
+- job: Build_Linux
   pool:
     vmImage: 'ubuntu-16.04'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master
@@ -40,7 +40,7 @@ jobs:
       command: push
       imageName: $(imageLatest)
 
-- job: Build-Windows
+- job: Build_Windows
   pool:
     vmImage: 'vs2017-win2016'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master 
@@ -74,10 +74,10 @@ jobs:
       command: push
       imageName: $(imageLatest)
 
-- job: ManifestTag-MakeMultiPlatLatest
+- job: Manifest_Tag_MakeMultiPlat_Latest
   dependsOn:
-  - Build-Linux
-  - Build-Windows
+  - Build_Linux
+  - Build_Windows
   pool:
     vmImage: 'ubuntu-16.04'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master
