@@ -34,6 +34,6 @@ or
 
 ## Tags
 
-`latest` - provides the latest linux (or) distribution.
-`latestwindows` - provides the latest windows distribution
-`latestlinux` - provides the latest linux distribution
+* `latest` - provides the latest linux (or) distribution.
+* `latestwindows` - provides the latest windows distribution
+* `latestlinux` - provides the latest linux distribution
