@@ -13,7 +13,7 @@ index.zip
 .vscode
 
 #ignore package-lock.json
-package-lock.json
+#package-lock.json
 
 # Logs
 logs

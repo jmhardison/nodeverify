@@ -17,9 +17,10 @@ module.exports = ({inconfig}) => {
     api.get('/', (req, res) => {
             var uuidstring = uuidv4();
             var epoctime = Date.now();
-            
+            var platform = process.platform;
+
             var hash = crypto.createHash(configInstance.hashalgorithm).update(uuidstring).digest("hex");
-            res.json({UserID: uuidstring, HashedUserID: hash, EPOC: epoctime}).status(200);
+            res.json({UserID: uuidstring, HashedUserID: hash, EPOC: epoctime, Platform: platform}).status(200);
             
     });
 
@@ -29,7 +30,7 @@ module.exports = ({inconfig}) => {
         if((req.params.userid != null) || (req.params.userid != 'undefined')){
             var epoctime = Date.now();
             var hash = crypto.createHash(configInstance.hashalgorithm).update(req.params.userid).digest("hex");
-            res.json({UserID: req.params.userid, HashedUserID: hash, EPOC: epoctime}).status(200);
+            res.json({UserID: req.params.userid, HashedUserID: hash, EPOC: epoctime, Platform: platform}).status(200);
         }
     });
     
