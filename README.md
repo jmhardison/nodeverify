@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/jmhardison/NodeVerify/_apis/build/status/jmhardison.nodeverify?branchName=master)](https://dev.azure.com/jmhardison/NodeVerify/_build/latest?definitionId=6&branchName=master)
+[![Build Status](https://dev.azure.com/jmhardison/NodeVerify/_apis/build/status/jmhardison.nodeverify?branchName=master)](https://dev.azure.com/jmhardison/NodeVerify/_build/latest?definitionId=6&branchName=master) [![Known Vulnerabilities](https://snyk.io/test/github/jmhardison/nodeverify/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmhardison/nodeverify?targetFile=package.json)
 # NodeVerify
 NodeVerify is used to perform some generic work in testing orchestrators performance and overhead.
 
