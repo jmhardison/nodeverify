@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/jmhardison/nodeverify",
   "dependencies": {
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.19.0",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "request": "^2.81.0",
