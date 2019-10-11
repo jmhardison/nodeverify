@@ -19,7 +19,7 @@ jobs:
       wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
       echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
       sudo apt-get update
-      sudo apt-get install -y trivy
+      sudo apt-get install -y trivy rpm
     displayName: Install Trivy
     
   - script: docker build -f docker/linux/amd64/Dockerfile -t $(imageName) .
