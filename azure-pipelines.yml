@@ -22,7 +22,7 @@ jobs:
       sudo apt-get install -y trivy
     displayName: Install Trivy
     
-  - script: docker build -f /docker/linux/amd64/Dockerfile -t $(imageName) .
+  - script: docker build -f docker/linux/amd64/Dockerfile -t $(imageName) .
     displayName: 'docker build'
   - task: Docker@1
     displayName: Tag image
@@ -52,7 +52,7 @@ jobs:
     imageName: 'jhardison/nodeverify:windows$(build.buildId)'
     imageLatest: 'jhardison/nodeverify:latestwindows'
   steps:
-  - script: docker build -f /docker/windows/amd64/Dockerfile -t $(imageName) .
+  - script: docker build -f docker/windows/amd64/Dockerfile -t $(imageName) .
     displayName: 'docker build'
   - task: Docker@1
     displayName: Tag image
