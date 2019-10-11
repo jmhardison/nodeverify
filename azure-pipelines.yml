@@ -13,7 +13,7 @@ jobs:
   variables:
     imageName: 'jhardison/nodeverify:linux$(build.buildId)'
     imageLatest: 'jhardison/nodeverify:latestlinux'
-    buildArg: 'node=node:10.15'
+    buildArg: 'node=node:12.11.1'
   steps:
   - script: |
       sudo apt-get install -y wget apt-transport-https gnupg lsb-release
