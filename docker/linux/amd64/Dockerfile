@@ -6,7 +6,7 @@ LABEL maintainer="jmh@jonathanhardison.com"
 WORKDIR /app
 COPY . .
 RUN npm install
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get clean autoclean && apt-get autoremove -y
+#staged for vulnerability#RUN apt-get update && apt-get upgrade -y
+#staged for vulnerability#RUN apt-get clean autoclean && apt-get autoremove -y
 EXPOSE 3005
 CMD node ./src/server.js
