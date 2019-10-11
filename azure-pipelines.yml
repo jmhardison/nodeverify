@@ -15,6 +15,13 @@ jobs:
     imageLatest: 'jhardison/nodeverify:latestlinux'
     buildArg: 'node=node:10.15'
   steps:
+  - script: |
+        sudo apt-get install -y wget apt-transport-https gnupg lsb-release
+        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+        echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+        sudo apt-get update
+        sudo apt-get install trivy
+      displayName: Install Trivy
   - script: docker build -f Dockerfile --build-arg $(buildArg) -t $(imageName) .
     displayName: 'docker build'
   - task: Docker@1
@@ -23,6 +30,8 @@ jobs:
       command: tag
       imageName: $(imageName)
       arguments: $(imageLatest)
+  - script: trivy $(imageName):$(imageLatest)
+    displayName: Scan Image - Trivy
   - task: Docker@1
     displayName: Container registry login
     inputs:
