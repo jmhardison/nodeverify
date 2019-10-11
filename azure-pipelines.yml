@@ -46,7 +46,7 @@ jobs:
 
 - job: Build_Windows
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-2019'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master 
   variables:
     imageName: 'jhardison/nodeverify:windows$(build.buildId)'
