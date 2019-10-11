@@ -9,6 +9,7 @@ jobs:
 - job: Build_Linux
   pool:
     vmImage: 'ubuntu-16.04'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master 
   variables:
     imageName: 'jhardison/nodeverify:linux$(build.buildId)'
     imageLatest: 'jhardison/nodeverify:latestlinux'
@@ -30,18 +31,16 @@ jobs:
       command: tag
       imageName: $(imageName)
       arguments: $(imageLatest)
-  - script: trivy --only-update debian --exit-code 1 --severity CRITICAL $(imageName)
+  - script: trivy --exit-code 1 --severity CRITICAL $(imageName)
     displayName: Scan Image - Trivy
   - task: Docker@1
     displayName: Container registry login
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master
     inputs:
       command: login
       containerregistrytype: Container Registry
       dockerRegistryEndpoint: JHARDISONDockerHub
   - task: Docker@1
     displayName: Push image
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master
     inputs:
       command: push
       imageName: $(imageLatest)
@@ -49,6 +48,7 @@ jobs:
 - job: Build_Windows
   pool:
     vmImage: 'vs2017-win2016'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master 
   variables:
     imageName: 'jhardison/nodeverify:windows$(build.buildId)'
     imageLatest: 'jhardison/nodeverify:latestwindows'
@@ -64,14 +64,12 @@ jobs:
       arguments: $(imageLatest)
   - task: Docker@1
     displayName: Container registry login
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master 
     inputs:
       command: login
       containerregistrytype: Container Registry
       dockerRegistryEndpoint: JHARDISONDockerHub
   - task: Docker@1
     displayName: Push image
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) #make sure it's source is master 
     inputs:
       command: push
       imageName: $(imageLatest)
