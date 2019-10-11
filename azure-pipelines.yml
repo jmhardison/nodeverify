@@ -31,7 +31,7 @@ jobs:
       command: tag
       imageName: $(imageName)
       arguments: $(imageLatest)
-  - script: trivy $(imageName):$(imageLatest)
+  - script: trivy $(imageName)
     displayName: Scan Image - Trivy
   - task: Docker@1
     displayName: Container registry login
