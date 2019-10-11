@@ -30,7 +30,7 @@ jobs:
       command: tag
       imageName: $(imageName)
       arguments: $(imageLatest)
-  - script: trivy --debug --exit-code 1 --severity CRITICAL $(imageName)
+  - script: trivy --debug --ignore-unfixed --exit-code 1 $(imageName)
     displayName: Scan Image - Trivy
   - task: Docker@1
     displayName: Container registry login
