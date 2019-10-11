@@ -7,6 +7,6 @@ WORKDIR /app
 COPY . .
 RUN npm install
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/lib/dpkg/* /var/lib/cache/* /var/lib/log/*
+RUN apt-get clean autoclean && apt-get autoremove -y
 EXPOSE 3005
 CMD node ./src/server.js
