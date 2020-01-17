@@ -25,7 +25,7 @@
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "request": "^2.81.0",
-    "uuid": "^3.3.3"
+    "uuid": "^3.4.0"
   },
   "devDependencies": {}
 }
