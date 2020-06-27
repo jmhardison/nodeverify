@@ -1,7 +1,13 @@
 version: 2
 updates:
 - package-ecosystem: docker
-  directory: "/"
+  directory: "/docker/linux/amd64"
+  schedule:
+    interval: daily
+    time: "11:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: docker
+  directory: "/docker/windows/amd64"
   schedule:
     interval: daily
     time: "11:00"
