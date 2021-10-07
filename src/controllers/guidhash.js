@@ -6,7 +6,7 @@
 var config = require('../config');
 var express = require('express');
 var Router = express.Router;
-var uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 var crypto = require('crypto');
 var os = require("os");
 let configInstance = new config();
