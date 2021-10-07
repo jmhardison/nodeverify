@@ -1,8 +1,9 @@
 # NodeVerify Linux
 # used in a poc of various orchestrators to test generic performance and overhead ARG is replaced in CI/CD pipeline.
-ARG node=node:lts
+ARG node=node:latest
 FROM $node as build
 LABEL maintainer="jmh@jonathanhardison.com"
+RUN apt-get update && apt-get install -y
 WORKDIR /app
 COPY . .
 RUN npm install
