@@ -5,7 +5,7 @@ FROM $node as build
 LABEL maintainer="jmh@jonathanhardison.com"
 WORKDIR /app
 COPY . .
-DEL package-lock.json
+RUN rm package-lock.json
 RUN npm install
 EXPOSE 3005
 CMD node ./src/server.js
