@@ -1,0 +1,49 @@
+name: Docker PR Build and Test
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  buildtest-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        context: docker/linux/amd64/Dockerfile
+        push: false
+        tags: nodeverify:latest-linux
+
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/docker@master
+      continue-on-error: true
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        command: monitor
+        image: nodeverify:latestlinux
+
+  buildtest-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        context: docker/windows/amd64/Dockerfile
+        push: false
+        tags: nodeverify:latest-windows
+
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/docker@master
+      continue-on-error: true
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        command: monitor
+        image: nodeverify:latestwindows
