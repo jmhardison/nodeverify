@@ -26,6 +26,10 @@ jobs:
       with:
         command: monitor
         image: nodeverify:${{ github.sha }}
+    
+    - name: Test
+      run: |
+        docker run --rm nodeverify:${{ github.sha }}
 
   buildtest-windows:
     runs-on: windows-latest
@@ -44,3 +48,7 @@ jobs:
       with:
         command: monitor
         image: nodeverify:${{ github.sha }}
+
+    - name: Test
+      run: |
+        docker run --rm nodeverify:${{ github.sha }}
