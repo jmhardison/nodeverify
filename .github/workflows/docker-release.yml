@@ -2,9 +2,7 @@ name: Docker Release
 
 on:
   push:
-    branches:
-      - master
-      - main
+    branches: [main]
 
 jobs:
   linux-push_to_registry:
