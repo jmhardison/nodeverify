@@ -28,7 +28,6 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        command: monitor
         image: nodeverify:${{ github.sha }}
         args: --file=docker/linux/amd64/Dockerfile --sarif-file-output=snyk.sarif
         sarif: true
