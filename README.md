@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/jmhardison/NodeVerify/_apis/build/status/jmhardison.nodeverify?branchName=master)](https://dev.azure.com/jmhardison/NodeVerify/_build/latest?definitionId=6&branchName=master) [![Known Vulnerabilities](https://snyk.io/test/github/jmhardison/nodeverify/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmhardison/nodeverify?targetFile=package.json)
+[![Docker Release](https://github.com/jmhardison/nodeverify/actions/workflows/docker-release.yml/badge.svg)](https://github.com/jmhardison/nodeverify/actions/workflows/docker-release.yml) [![Known Vulnerabilities](https://snyk.io/test/github/jmhardison/nodeverify/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmhardison/nodeverify?targetFile=package.json)
 # NodeVerify
 NodeVerify is used to perform some generic work in testing orchestrators performance and overhead.
 
@@ -21,6 +21,8 @@ A status endpoint is available once launched:
 ## Running Docker
 
 To launch this API with docker, use the following. You may swap in a docker environment file if you choose, replacing values with real values.
+
+Provided cross post on github packges.
 
 ### Linux
 `docker run -d -p 3005:3005 jhardison/nodeverify`

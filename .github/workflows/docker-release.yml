@@ -8,7 +8,7 @@ on:
 
 jobs:
   linux-push_to_registry:
-    name: Push Docker image to Docker Hub
+    name: buildpush-linux
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -51,7 +51,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   windows-push_to_registry:
-    name: Push Docker image to Docker Hub
+    name: buildpush-windows
     runs-on: windows-latest
     permissions:
       packages: write
@@ -98,7 +98,7 @@ jobs:
           docker image push ghcr.io/${{ github.repository }}:latestwindows
 
   docker-multiplat-manifest:
-    name: Bind and Push Multi-Platform Tags with Manifest
+    name: manifest-push
     runs-on: windows-latest
     needs:
       - windows-push_to_registry
@@ -106,7 +106,7 @@ jobs:
     steps:
       - name: manifest-tool-dockerhub
         run: |
-          docker manifest push from-spec manifest.yaml
+          docker manifest push manifest.yaml
       - name: manifest-tool-github
         run: |
-          docker manifest push from-spec manifest-gh.yaml
+          docker manifest push manifest-gh.yaml
