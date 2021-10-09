@@ -22,20 +22,40 @@ A status endpoint is available once launched:
 
 To launch this API with docker, use the following. You may swap in a docker environment file if you choose, replacing values with real values.
 
-Provided cross post on github packges.
+Provided cross post on github packges. In addition, this repository includes an example [Github Actions workflow](https://github.com/jmhardison/nodeverify/blob/main/.github/workflows/docker-release.yml) for building multiple os images and using manifest to join them to one tag.
+```
+
+```
 
 ### Linux
+From Dockerhub:
 `docker run -d -p 3005:3005 jhardison/nodeverify`
 or
 `docker run -d -p 3005:3005 jhardison/nodeverify:latestlinux`
 
+From Github:
+`docker run -d -p 3005:3005 ghcr.io/jmhardison/nodeverify`
+or
+`docker run -d -p 3005:3005 ghcr.io/jmhardison/nodeverify:latestlinux`
+
+
+
 ### Windows
+From Dockerhub:
 `docker run -d -p 3005:3005 jhardison/nodeverify`
 or
 `docker run -d -p 3005:3005 jhardison/nodeverify:latestwindows`
+
+From Github:
+From Github:
+`docker run -d -p 3005:3005 ghcr.io/jmhardison/nodeverify`
+or
+`docker run -d -p 3005:3005 ghcr.io/jmhardison/nodeverify:latestwindows`
+
 
 ## Tags
 
 * `latest` - provides the latest linux (or) windows distribution.
 * `latestwindows` - provides the latest windows distribution
 * `latestlinux` - provides the latest linux distribution
+
