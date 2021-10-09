@@ -30,7 +30,7 @@ jobs:
       with:
         command: monitor
         image: nodeverify:${{ github.sha }}
-        args: --file=docker/linux/amd64/Dockerfile
+        args: --file=docker/linux/amd64/Dockerfile --sarif-file-output=snyk.sarif
         sarif: true
         json: true
     - name: Upload Snyk result to GitHub Code Scanning
