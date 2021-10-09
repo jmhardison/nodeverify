@@ -1,0 +1,112 @@
+name: Docker Release
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  linux-push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@3a3bb3a81753dc99f090d24ee7e5343838b73a96
+        with:
+          flavor: |
+            latest=false
+          images: |
+            jhardison/nodeverify
+            ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latestlinux
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          file: docker/linux/amd64/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  windows-push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: windows-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@3a3bb3a81753dc99f090d24ee7e5343838b73a96
+        with:
+          flavor: |
+            latest=false
+          images: |
+            jhardison/nodeverify
+            ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=windowslinux
+      
+      - name: Build on Windows
+        run: |
+          docker build --file=docker/windows/amd64/Dockerfile -t jhardison/nodeverify:latestwindows -t ghcr.io/${{ github.repository }}:latestwindows .
+          
+      - name: Push DockerHub
+        run: |        
+          docker image push jhardison/nodeverify:latestwindows
+
+      - name: Push Github Package
+        run: |        
+          docker image push ghcr.io/${{ github.repository }}:latestwindows
+
+  docker-multiplat-manifest:
+    name: Bind and Push Multi-Platform Tags with Manifest
+    runs-on: windows-latest
+    needs:
+      - windows-push_to_registry
+      - linux-push_to_registry
+    steps:
+      - name: manifest-tool-dockerhub
+        run: |
+          docker manifest push from-spec manifest.yaml
+      - name: manifest-tool-github
+        run: |
+          docker manifest push from-spec manifest-gh.yaml

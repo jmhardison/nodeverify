@@ -1,0 +1,12 @@
+image: ghcr.io/jmhardison/nodeverify:latest
+manifests:
+  -
+    image: ghcr.io/jmhardison/nodeverify:latestlinux
+    platform:
+      architecture: amd64
+      os: linux
+  -
+    image: ghcr.io/jmhardison/nodeverify:latestwindows
+    platform:
+      architecture: amd64
+      os: windows
