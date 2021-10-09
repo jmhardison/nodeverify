@@ -7,6 +7,9 @@ on:
 jobs:
 
   buildtest-linux:
+    permissions:
+      contents: read
+      security-events: write
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -27,10 +30,12 @@ jobs:
         command: monitor
         image: nodeverify:${{ github.sha }}
         args: --file=docker/linux/amd64/Dockerfile
+        sarif: true
+        json: true
     - name: Upload Snyk result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v1
       with:
-        sarif_file: docker/linux/amd64/snyk.sarif
+        sarif_file: snyk.sarif
 
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
