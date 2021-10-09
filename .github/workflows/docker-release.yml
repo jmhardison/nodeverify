@@ -99,14 +99,41 @@ jobs:
 
   docker-multiplat-manifest:
     name: manifest-push
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs:
       - windows-push_to_registry
       - linux-push_to_registry
     steps:
-      - name: manifest-tool-dockerhub
-        run: |
-          docker manifest push manifest.yaml
-      - name: manifest-tool-github
-        run: |
-          docker manifest push manifest-gh.yaml
+      - name: manifest-tool-dockerhub-create
+        run: >
+          docker manifest create jhardison/nodeverify:latest 
+          jhardison/nodeverify:latestlinux 
+          jhardison/nodeverify:latestwindows
+      - name: manifest-tool-dockerhub-annotate-linux
+        run: >
+          docker manifest annotate jhardison/nodeverify:latest 
+          jhardison/nodeverify:latestlinux --arch amd64 --os linux
+      - name: manifest-tool-dockerhub-annotate-windows
+        run: >
+          docker manifest annotate jhardison/nodeverify:latest 
+          jhardison/nodeverify:latestwindows --arch amd64 --os windows
+      - name: manifest-tool-dockerhub-push
+        run: >
+          docker manifest push jhardison/nodeverify:latest
+
+      - name: manifest-tool-github-create
+        run: >
+          docker manifest create ghcr.io/jmhardison/nodeverify:latest 
+          ghcr.io/jmhardison/nodeverify:latestlinux 
+          ghcr.io/jmhardison/nodeverify:latestwindows
+      - name: manifest-tool-github-annotate-linux
+        run: >
+          docker manifest annotate ghcr.io/jmhardison/nodeverify:latest 
+          ghcr.io/jmhardison/nodeverify:latestlinux --arch amd64 --os linux
+      - name: manifest-tool-github-annotate-windows
+        run: >
+          docker manifest annotate ghcr.io/jmhardison/nodeverify:latest 
+          ghcr.io/jmhardison/nodeverify:latestwindows --arch amd64 --os windows
+      - name: manifest-tool-github-push
+        run: >
+          docker manifest push ghcr.io/jmhardison/nodeverify:latest
