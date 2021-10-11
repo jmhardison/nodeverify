@@ -22,9 +22,8 @@ A status endpoint is available once launched:
 
 To launch this API with docker, use the following. You may swap in a docker environment file if you choose, replacing values with real values.
 
-```
 Provided cross post on github packges. In addition, this repository includes an example [Github Actions workflow](https://github.com/jmhardison/nodeverify/blob/main/.github/workflows/docker-release.yml) for building multiple os images and using manifest to join them to one tag.
-```
+
 
 ### Linux
 From Dockerhub:
