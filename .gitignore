@@ -9,8 +9,9 @@ publish.bat
 index.zip
 
 
-#ignore vscode
+#ignore editors and ides
 .vscode
+.idea/
 
 #ignore package-lock.json
 #package-lock.json
