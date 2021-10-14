@@ -8,4 +8,6 @@ COPY . .
 RUN del package-lock.json /Q
 RUN npm install
 EXPOSE 3005
+HEALTHCHECK --interval=20s --timeout=3s --start-period=30s \
+  CMD node ./src/docker-healthcheck.js
 CMD node ./src/server.js
