@@ -28,12 +28,16 @@ Provided cross post on github packges. In addition, this repository includes an 
 ### Linux
 From Dockerhub:
 `docker run -d -p 3005:3005 jhardison/nodeverify`
+
 or
+
 `docker run -d -p 3005:3005 jhardison/nodeverify:latestlinux`
 
 From Github:
 `docker run -d -p 3005:3005 ghcr.io/jmhardison/nodeverify`
+
 or
+
 `docker run -d -p 3005:3005 ghcr.io/jmhardison/nodeverify:latestlinux`
 
 
@@ -41,13 +45,17 @@ or
 ### Windows
 From Dockerhub:
 `docker run -d -p 3005:3005 jhardison/nodeverify`
+
 or
+
 `docker run -d -p 3005:3005 jhardison/nodeverify:latestwindows`
 
 From Github:
 From Github:
 `docker run -d -p 3005:3005 ghcr.io/jmhardison/nodeverify`
+
 or
+
 `docker run -d -p 3005:3005 ghcr.io/jmhardison/nodeverify:latestwindows`
 
 
