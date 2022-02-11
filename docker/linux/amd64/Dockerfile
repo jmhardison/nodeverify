@@ -1,6 +1,6 @@
 # NodeVerify Linux
 # used in a poc of various orchestrators to test generic performance and overhead ARG is replaced in CI/CD pipeline.
-FROM node:16.11.1-buster-slim
+FROM node:17.5.0-buster-slim
 LABEL maintainer="jmh@jonathanhardison.com"
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 RUN apt-get update && apt-get install -y
