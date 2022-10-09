@@ -1,6 +1,6 @@
 # NodeVerify - Windows
 # used in a poc of various orchestrators to test generic performance and overhead ARG is replaced in CI/CD pipeline.
-FROM stefanscherer/node-windows:latest
+FROM stefanscherer/node-windows:12.18.3-windowsservercore 
 LABEL maintainer="jmh@jonathanhardison.com"
 WORKDIR /app
 COPY . .
