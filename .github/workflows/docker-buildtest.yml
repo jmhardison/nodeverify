@@ -13,7 +13,7 @@ jobs:
       security-events: write
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3.1.0
+    - uses: actions/checkout@v4.1.1
     - name: Build the Docker image
       id: docker_build
       uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
@@ -40,7 +40,7 @@ jobs:
   buildtest-windows:
     runs-on: windows-2019
     steps:
-    - uses: actions/checkout@v3.1.0
+    - uses: actions/checkout@v4.1.1
 
     - name: Build on Windows
       run: |
